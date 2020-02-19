@@ -1,0 +1,161 @@
+[
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "_fileName",
+				"type": "string"
+			},
+			{
+				"name": "_fileHash",
+				"type": "string"
+			}
+		],
+		"name": "setHash",
+		"outputs": [
+			{
+				"name": "setBool",
+				"type": "bool"
+			}
+		],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "allFiles",
+		"outputs": [
+			{
+				"name": "fileName",
+				"type": "string"
+			},
+			{
+				"name": "fileHash",
+				"type": "string"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"name": "",
+				"type": "string"
+			}
+		],
+		"name": "file2Hashes",
+		"outputs": [
+			{
+				"name": "",
+				"type": "string"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"name": "_fileName",
+				"type": "string"
+			}
+		],
+		"name": "getHashByName",
+		"outputs": [
+			{
+				"name": "_fileHash",
+				"type": "string"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "getList",
+		"outputs": [
+			{
+				"components": [
+					{
+						"name": "fileName",
+						"type": "string"
+					},
+					{
+						"name": "fileHash",
+						"type": "string"
+					}
+				],
+				"name": "retFiles",
+				"type": "tuple[]"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "listAllHashes",
+		"outputs": [
+			{
+				"components": [
+					{
+						"name": "fileName",
+						"type": "string"
+					},
+					{
+						"name": "fileHash",
+						"type": "string"
+					}
+				],
+				"name": "retFiles",
+				"type": "tuple[]"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"name": "",
+				"type": "address"
+			},
+			{
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "user_files",
+		"outputs": [
+			{
+				"name": "fileName",
+				"type": "string"
+			},
+			{
+				"name": "fileHash",
+				"type": "string"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	}
+]

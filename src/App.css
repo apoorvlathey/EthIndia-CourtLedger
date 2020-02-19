@@ -1,0 +1,40 @@
+.App {
+  text-align: center;
+}
+
+.layoutBG {
+  /* background-image: linear-gradient(to bottom, #000000, #241a1f, #3f2d3d, #564462, #655e8b, #6a70a3, #6d83ba, #6c96d1, #72a1d9, #79ade1, #81b8e9, #8ac3f0); */
+  height:100vh;
+  background-image: linear-gradient(to bottom, #112b4e, #183358, #1f3c63, #26446e, #2d4d79, #345684, #3a5e8f, #41679a, #4971a8, #527cb6, #5a87c4, #6392d3);
+  /* height : -webkit-fill-available; */
+  width:100vw;
+  padding:50px;
+}
+
+.fileLabel {
+  color:#ffffff;
+  /* float:left; */
+  font-weight: 400;
+  letter-spacing: 1.5px;
+}
+.fileInput {
+  background-color:transparent;
+  border:1px #fff solid;
+  color:#fafafa;
+  border-bottom:1px solid #fbfbfb; 
+}
+.table_body_scrollable {
+  padding:0px;
+  margin: 0px;
+
+}
+.content-container {
+  font-size:14px;
+  height:50vh;
+  overflow-y: scroll;
+}
+.hashHover:hover {
+  cursor: pointer;
+  color:rgb(63, 63, 199);
+  font-weight: 600;
+}
