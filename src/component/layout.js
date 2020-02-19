@@ -246,6 +246,38 @@ class Layout extends Component {
         var decrypted = await this.decrypt(_privateKey, _encrypted);
         return decrypted;
     }
+    convertBase64toBlob(content, contentType) {
+        contentType = contentType || '';
+        var sliceSize = 512;
+        var byteCharacters = window.atob(content); //method which converts base64 to binary
+        var byteArrays = [
+        ];
+        for (var offset = 0; offset < byteCharacters.length; offset += sliceSize) {
+            var slice = byteCharacters.slice(offset, offset + sliceSize);
+            var byteNumbers = new Array(slice.length);
+            for (var i = 0; i < slice.length; i++) {
+                byteNumbers[i] = slice.charCodeAt(i);
+            }
+            var byteArray = new Uint8Array(byteNumbers);
+            byteArrays.push(byteArray);
+        }
+        var blob = new Blob(byteArrays, {
+            type: contentType
+        }); //statement which creates the blob
+        return blob;
+    }
+    downloadBlob(_blob, type) {
+        let blobData = this.convertBase64toBlob(_blob, type)
+        let url = window.URL.createObjectURL(blobData)
+        var a = document.createElement('a')
+        document.body.appendChild(a);
+        a.style = "display:none"
+        a.href = url
+        a.download = "downloadedFile"
+        a.click()
+        document.body.removeChild(a)
+        document.location.reload();
+    }
 
     render() {
         const custom_header = {
@@ -278,21 +310,32 @@ class Layout extends Component {
                                             <Table.Cell textAlign="center" colSpan='2'>
                                                 <Input type="file" onChange={(e) => {
                                                     const _file = e.target.files[0];
+                                                    const type = _file.type
                                                     this.setState({ file: _file });
-                                                    // BASE63 ENCODING
+                                                    // BASE64 ENCODING
                                                     var reader = new FileReader();
                                                     reader.onload = (theFile => {
                                                         return e => {
                                                             var binaryData = e.target.result;
                                                             var base64String = window.btoa(binaryData); // encoded to base64
-                                                            this.setState({fileBase64: base64String});
+                                                            // console.log(base64String)
+
+                                                            this.setState({ fileBase64: base64String });
                                                             this.runEncrypt(
                                                                 this.state.temp_public_key,
                                                                 this.state.fileBase64
                                                             ).then(encoded => {
                                                                 console.log(encoded);
-                                                            });
-                                                            // var decoded = window.atob(base64String); //decoded to binary
+                                                                this.runDecrypt(
+                                                                    this.state.temp_private_key,
+                                                                    encoded
+                                                                ).then((e) => {
+                                                                    console.log(this.convertBase64toBlob(e, type))
+                                                                    this.downloadBlob(e, type)
+
+                                                                })
+                                                            })
+
                                                         }
                                                     })(_file)
                                                     reader.readAsBinaryString(_file);
@@ -331,6 +374,8 @@ class Layout extends Component {
                         />
                     </div>
                     {/* TO HERE */}
+
+
                 </div>
             </div>
         );
