@@ -1,14 +1,14 @@
-import React from 'react';
-import Container from './container/dapp';
+import React from "react";
+import Container from "./container/dapp.js";
+import "./App.css";
+import "antd/dist/antd.css";
 
-class SampleDapp extends React.Component {
-  render() {
-    return (
-      <div className="App">
-        <Container />
-      </div>
-    );
-  }
+function App() {
+  return (
+    <div className="App">
+      <Container />
+    </div>
+  );
 }
 
-export default SampleDapp;
+export default App;

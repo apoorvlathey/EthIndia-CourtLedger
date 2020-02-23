@@ -134,7 +134,7 @@ class Layout extends Component {
         let allFiles = response.data.data.Entries;
         const index1 = allFiles.map(e => e.Name).indexOf(name);
         let checkingHash = '';
-        if (index1 != -1) {
+        if (index1 !== -1) {
             checkingHash = allFiles[index1].Hash;
         }
 
@@ -152,7 +152,7 @@ class Layout extends Component {
 
             /* we are rendering all the root files so we are adding / in prefix to file name */
             const filename = credentials.API_KEY + '/' + name;
-            if (checkingHash == await Instance.Config.methods.getHashByName(filename).call()) {
+            if (checkingHash === await Instance.Config.methods.getHashByName(filename).call()) {
                 files[index] = {
                     Name: name,
                     Hash: hash,

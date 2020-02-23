@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import Layout from '../component/layout.js';
 import '../App.css';
 import Web3 from 'web3';
+import Nav from "../component/Nav.js";
+import Main from "../component/Main.js";
 // import Court from '../abis/Court';
 
 
@@ -52,8 +54,12 @@ class Dapp extends Component {
 
     render() {
         return (
-            <Layout />
+            <div>
+                <Nav />
+                <Main />
+            </div>
         );
     }
 }
 export default Dapp;
+
