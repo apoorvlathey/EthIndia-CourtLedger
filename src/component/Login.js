@@ -25,11 +25,7 @@ class Login extends Component {
                         <Form.Item>
                             {getFieldDecorator("CaseNumber", {
                                 rules: [
-                                    {
-                                        required: true,
-                                        message:
-                                            "Please input your case number!"
-                                    }
+
                                 ]
                             })(
                                 <Input
