@@ -22,6 +22,7 @@ class Layout extends Component {
         modalOpen: false,
         fileName: '',
         fileBase64: '',
+        encrypted_file_string: '',
         temp_public_key: 'bf6b78a26b7abc11f9e59da81e2fade5be67de7af914df64119598d70536862b87bc1344db520d902fc0468f8b262b7e14b1a1fef38a5a9a45c6ae4f4c8a993e',
         temp_private_key: '0xc90624630837b22cd1dde951bf441c7f4636a4e1b7d5918f3764b14b82d17456'
     }
@@ -79,9 +80,15 @@ class Layout extends Component {
     }
     handleSubmit = async (e) => {
         e.preventDefault();
-        if (this.state.file !== "") {
+        if (this.state.encrypted_file_string !== "") {
             let formData = new FormData();
-            formData.append('file', this.state.file);
+            var string = JSON.stringify(this.state.encrypted_file_string)
+            console.log(this.state.encrypted_file_string)
+            var blob = new Blob([string], { type: 'text/plain' })
+            var file = new File([blob], "document.txt", { type: "text/plain" })
+            console.log(file)
+            formData.append('file', file);
+            formData.append('fileType', '/' + this.state.fileType);
             formData.append('fileName', '/' + this.state.file.name);
             this.setState({ loading: true });
 
@@ -106,6 +113,35 @@ class Layout extends Component {
             this.setState({ fieldReq: true })
         }
     }
+    // handleSubmit = async (e) => {
+    //     e.preventDefault();
+    //     if (this.state.file !== "") {
+    //         let formData = new FormData();
+    //         formData.append('file', this.state.file);
+    //         formData.append('fileName', '/' + this.state.file.name);
+    //         this.setState({ loading: true });
+
+    //         let response = await axios({
+    //             method: 'post',
+    //             url: credentials.CUSTOM_URL + "/moibit/v0/writefile",
+    //             data: formData
+    //         });
+    //         const actualFileName = credentials.API_KEY + "" + response.data.data.Path + "" + response.data.data.Name;
+    //         await Instance.Config.methods.setHash(actualFileName, response.data.data.Hash).send({ from: this.state.accountId });
+    //         if (this.state.accountId === credentials.ADMIN) {
+    //             this.getALLHashes();
+    //             this.setState({ loading: false });
+    //         }
+    //         else {
+    //             this.getFileHash();
+    //             this.setState({ loading: false });
+    //         }
+    //         this.setState({ loading: false });
+    //     }
+    //     else {
+    //         this.setState({ fieldReq: true })
+    //     }
+    // }
 
     observe = async () => {
         try {
@@ -204,6 +240,14 @@ class Layout extends Component {
                         });
                     }
                     else {
+                        console.log(response.data)
+                        this.runDecrypt(
+                            this.state.temp_private_key,
+                            response.data
+                        ).then((e) => {
+                            console.log(this.convertBase64toBlob(e, 'text/plain'))
+                            // this.downloadBlob(e, 'text/plain')
+                        })
                         this.setState({
                             readFileIframe: window.URL.createObjectURL(new Blob([response.data], { type: response.headers['content-type'] })),
                             fileType: response.headers['content-type'],
@@ -325,15 +369,8 @@ class Layout extends Component {
                                                                 this.state.temp_public_key,
                                                                 this.state.fileBase64
                                                             ).then(encoded => {
-                                                                console.log(encoded);
-                                                                this.runDecrypt(
-                                                                    this.state.temp_private_key,
-                                                                    encoded
-                                                                ).then((e) => {
-                                                                    console.log(this.convertBase64toBlob(e, type))
-                                                                    this.downloadBlob(e, type)
-
-                                                                })
+                                                                // console.log(encoded);
+                                                                this.setState({ encrypted_file_string: encoded })
                                                             })
 
                                                         }
