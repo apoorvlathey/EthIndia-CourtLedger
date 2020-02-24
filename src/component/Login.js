@@ -39,6 +39,23 @@ class Login extends Component {
                                 />
                             )}
                         </Form.Item>
+                        <Form.Item>
+                            {getFieldDecorator("PrivateKey", {
+                                rules: [
+
+                                ]
+                            })(
+                                <Input
+                                    prefix={
+                                        <Icon
+                                            type="lock"
+                                            style={{ color: "rgba(0,0,0,.25)" }}
+                                        />
+                                    }
+                                    placeholder="Private Key"
+                                />
+                            )}
+                        </Form.Item>
                         <Form.Item className={styles.formBottom}>
                             <Button
                                 type="primary"
