@@ -14,6 +14,7 @@ export default function Main() {
                 <Route exact path="/" component={Layout} />
                 <Route path="/login" component={WrappedNormalLoginForm} />
                 <Route path="/addcase" component={WrappedNormalAddCaseForm} />
+                {/* <Route path="/register" render={()=><WrappedNormalRegisterForm registerLawyer={this.props.registerLawyer.bind(this)}/>} /> */}
                 <Route path="/register" component={WrappedNormalRegisterForm} />
                 <Route component={NoMatch} />
             </Switch>

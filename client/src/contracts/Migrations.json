@@ -889,10 +889,16 @@
       "links": {},
       "address": "0xc54cF63E74B021bf7f917aC9A033C02D5A695fF3",
       "transactionHash": "0xfe6ba20052869f797458491ca25954b6e85fc0ab3f438e515d9b0457a57d0f0a"
+    },
+    "42": {
+      "events": {},
+      "links": {},
+      "address": "0x1Db4600DA46516f66698d3E2657032776c376890",
+      "transactionHash": "0x0c3de62692f6f984099850c702f6223e877a8a6881e9efe5cd224a9c6726d508"
     }
   },
   "schemaVersion": "3.0.16",
-  "updatedAt": "2020-02-26T22:54:10.725Z",
+  "updatedAt": "2020-02-26T23:17:57.667Z",
   "devdoc": {
     "methods": {}
   },

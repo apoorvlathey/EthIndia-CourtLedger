@@ -36,7 +36,7 @@ class AddCase extends Component {
                                             style={{ color: "rgba(0,0,0,.25)" }}
                                         />
                                     }
-                                    placeholder="Judge Address"
+                                    placeholder="Judge Id"
                                 />
                                 <Input
                                     prefix={
@@ -45,7 +45,7 @@ class AddCase extends Component {
                                             style={{ color: "rgba(0,0,0,.25)" }}
                                         />
                                     }
-                                    placeholder="Lawyer 1 "
+                                    placeholder="Lawyer 1 Id"
                                 />
                                 <Input
                                     prefix={
@@ -54,7 +54,7 @@ class AddCase extends Component {
                                             style={{ color: "rgba(0,0,0,.25)" }}
                                         />
                                     }
-                                    placeholder="Lawyer 2"
+                                    placeholder="Lawyer 2 Id"
                                 />
                                 <Input
                                     prefix={
@@ -68,11 +68,20 @@ class AddCase extends Component {
                                 <Input
                                     prefix={
                                         <Icon
-                                            type="number"
+                                            type="user"
                                             style={{ color: "rgba(0,0,0,.25)" }}
                                         />
                                     }
-                                    placeholder="Unique Case Number"
+                                    placeholder="Party 1 Name"
+                                />
+                                <Input
+                                    prefix={
+                                        <Icon
+                                            type="user"
+                                            style={{ color: "rgba(0,0,0,.25)" }}
+                                        />
+                                    }
+                                    placeholder="Party 2 Name"
                                 />
                             </>
                             )}
@@ -82,7 +91,7 @@ class AddCase extends Component {
                                 type="primary"
                                 htmlType="submit"
                                 className="login-form-button">
-                                Proceed to Ading the case
+                                Proceed to Add the case
                             </Button>
                             <br />
                         </Form.Item>

@@ -10,14 +10,14 @@ module.exports = {
     develop: {
       port: 8545
     },
-    rinkeby: {
+    kovan: {
       provider: function () {
         return new HDWalletProvider(
           process.env.MNEMONIC,
-          "https://rinkeby.infura.io/v3/d6567ea751014dc6b2426e02cd9ac714"
+          "https://kovan.infura.io/v3/d6567ea751014dc6b2426e02cd9ac714"
         );
       },
-      network_id: 4,
+      network_id: 42,
       gas: 4500000,
       gasPrice: 10000000000
     }

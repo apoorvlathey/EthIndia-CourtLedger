@@ -39,7 +39,7 @@ class Login extends Component {
                                 />
                             )}
                         </Form.Item>
-                        <Form.Item>
+                        {/* <Form.Item>
                             {getFieldDecorator("PrivateKey", {
                                 rules: [
 
@@ -55,7 +55,7 @@ class Login extends Component {
                                     placeholder="Private Key"
                                 />
                             )}
-                        </Form.Item>
+                        </Form.Item> */}
                         <Form.Item className={styles.formBottom}>
                             <Button
                                 type="primary"

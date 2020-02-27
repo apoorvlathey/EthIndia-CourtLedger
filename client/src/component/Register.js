@@ -93,7 +93,7 @@ class Register extends Component {
                             )}
                         </Form.Item>
                         <Form.Item>
-                            {getFieldDecorator("ID_Num", {
+                            {getFieldDecorator("Address", {
                                 rules: [
 
                                 ]
@@ -105,11 +105,11 @@ class Register extends Component {
                                             style={{ color: "rgba(0,0,0,.25)" }}
                                         />
                                     }
-                                    placeholder="Unique Id Number"
+                                    placeholder="Eth Address"
                                 />
                             )}
                         </Form.Item>
-                        <Form.Item>
+                        {/* <Form.Item>
                             {getFieldDecorator("District", {
                                 rules: [
 
@@ -125,6 +125,23 @@ class Register extends Component {
                                     placeholder="District"
                                 />
                             )}
+                        </Form.Item> */}
+                        <Form.Item>
+                            {getFieldDecorator("PublicKey", {
+                                rules: [
+
+                                ]
+                            })(
+                                <Input
+                                    prefix={
+                                        <Icon
+                                            type="lock"
+                                            style={{ color: "rgba(0,0,0,.25)" }}
+                                        />
+                                    }
+                                    placeholder="Public Key"
+                                />
+                            )}
                         </Form.Item>
 
                         <Form.Item className={styles.formBottom}>
@@ -132,7 +149,7 @@ class Register extends Component {
                                 type="primary"
                                 htmlType="submit"
                                 className="login-form-button">
-                                Proceed to Adding the user
+                                Proceed to Add the user
                             </Button>
                             <br />
                         </Form.Item>
