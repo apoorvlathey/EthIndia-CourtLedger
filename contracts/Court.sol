@@ -46,7 +46,7 @@ contract Court {
     Case[] public cases;
     
     event lawyerRegistered(uint _lawyerId);
-    event JudgeRegistered(uint _judgeId);
+    event judgeRegistered(uint _judgeId);
     event caseCreated(uint _caseId);
     
     function registerLawyer(string memory _name, uint _phone, string memory _email, address _addr, string memory _pubkey) public {
@@ -57,7 +57,7 @@ contract Court {
     function registerJudge(string memory _name, uint _phone, string memory _email, address _addr, string memory _pubkey) public {
         Judge memory j = Judge(_name, _phone, _email, _addr, _pubkey);
         judges.push(j);
-        emit caseCreated(judges.length-1);
+        emit judgeRegistered(judges.length-1);
     }
     
     function newCase(uint _judgeId, uint _lawyer1Id, uint _lawyer2Id, string memory _party_1_name, string memory _party_2_name, string memory _details) public onlyOwner {
@@ -108,6 +108,10 @@ contract Court {
         } else {
             return judges[_ljId].encryptedKeys[_caseId];
         }
+    }
+    
+    function getCaseAddresses(uint _caseId) public view returns(address judge, address lawyer1, address lawyer2) {
+        return(cases[_caseId].judge, cases[_caseId].lawyer1, cases[_caseId].lawyer2);
     }
     
     constructor() public {
