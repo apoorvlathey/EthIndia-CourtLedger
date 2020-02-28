@@ -6,13 +6,20 @@ import Layout from "./layout";
 // import Login from "./Login";
 import WrappedNormalLoginForm from "./Login";
 import WrappedNormalAddCaseForm from "./AddCase";
-import WrappedNormalRegisterForm from "./Register";
+import WrappedNormalRegisterLawyerForm from "./RegisterLawyer";
+import WrappedNormalRegisterJudgeForm from "./RegisterJudge";
 const Main = (props) => {
     return (
         <main>
             <Switch>
                 <Route exact path="/" component={Layout} />
-                <Route path="/login" component={WrappedNormalLoginForm} />
+                <Route path="/login" render={
+                    function(){
+                        return(
+                            <WrappedNormalLoginForm passableItems={props.passableItems}/>
+                        )
+                    }
+                }/>
                 <Route path="/addcase" render={
                     function(){
                         return(
@@ -20,10 +27,17 @@ const Main = (props) => {
                         )
                     }
                 }/>
-                <Route path="/register" render={
+                <Route path="/registerLawyer" render={
                     function(){
                         return(
-                            <WrappedNormalRegisterForm passableItems={props.passableItems}/>
+                            <WrappedNormalRegisterLawyerForm passableItems={props.passableItems}/>
+                        )
+                    }
+                }/>
+                <Route path="/registerJudge" render={
+                    function(){
+                        return(
+                            <WrappedNormalRegisterJudgeForm passableItems={props.passableItems}/>
                         )
                     }
                 }/>

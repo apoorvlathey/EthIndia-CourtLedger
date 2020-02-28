@@ -2,29 +2,32 @@ import React, { Component } from "react";
 import { Form, Icon, Input, Button, Checkbox } from "antd";
 import styles from "./styles/register.module.css";
 import "antd/dist/antd.css";
+import loading from "../loading.gif";
 const EthCrypto = require("eth-crypto");
 
 class Register extends Component {
-  async registerLawyer(name, phone, email, address, pubkey, p) {
+  async registerJudge(name, phone, email, address, pubkey, p) {
     const { account, court, GAS, GAS_PRICE } = p;
     console.log(court);
     await court.methods
-      .registerLawyer(name, phone, email, address, pubkey)
+      .registerJudge(name, phone, email, address, pubkey)
       .send({ from: account, gas: GAS, gasPrice: GAS_PRICE })
       .then(r => {
         console.log(r);
 
         var h3 = document.body.querySelector("#lawyerId");
         h3.style = "display:block";
+        var lg = document.body.querySelector("#loadinggif");
+        lg.style = "display:none";
         this.getValue(court);
       });
   }
 
   getValue = async court => {
     var events = await court.events
-      .lawyerRegistered({ fromBlock: 0 })
+      .judgeRegistered({ fromBlock: 0 })
       .on("data", event => {
-        this.setState({ lawyerId: event.returnValues._lawyerId });
+        this.setState({ lawyerId: event.returnValues._judgeId });
       })
       .on("changed", function(event) {
         console.log("NEWWW", event);
@@ -49,6 +52,8 @@ class Register extends Component {
 
   handleSubmit = e => {
     e.preventDefault();
+    var lg = document.body.querySelector("#loadinggif");
+    lg.style = "display:inline";
     var p = this.props.passableItems;
     this.props.form.validateFields((err, values) => {
       if (!err) {
@@ -61,7 +66,7 @@ class Register extends Component {
         var address = p.account;
         var pubk = person.publicKey;
         // console.log(name, email, phone, address)
-        this.registerLawyer(name, phone, email, address, pubk, p);
+        this.registerJudge(name, phone, email, address, pubk, p);
 
         this.downloadPrivateKey(person["privateKey"]);
       }
@@ -81,6 +86,7 @@ class Register extends Component {
     return (
       <div className={styles.parentContainer}>
         <div className={styles.containerForm}>
+          <h1>Register Judge</h1>
           <Form
             onSubmit={this.handleSubmit}
             className="login-form"
@@ -179,9 +185,17 @@ class Register extends Component {
                 Proceed to Add the user
               </Button>
               <br />
+              <img
+                style={{ display: "none" }}
+                id="loadinggif"
+                src={loading}
+                alt=""
+                height="100px"
+              />
+              <br />
             </Form.Item>
             <h3 id="lawyerId" style={{ display: "none" }}>
-              Your Lawyer Id is: {this.state.lawyerId}
+              Your Judge Id is: {this.state.lawyerId}
             </h3>
           </Form>
         </div>
