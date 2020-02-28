@@ -3,13 +3,18 @@ import React, { Component } from "react";
 import { Form, Icon, Input, Button, Checkbox } from "antd";
 import styles from "./styles/login.module.css";
 import "antd/dist/antd.css";
+import {Redirect, withRouter} from "react-router-dom";
 class Login extends Component {
   handleSubmit = e => {
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
       if (!err) {
+        
         console.log("Received values of form: ", values.CaseNumber);
-        this.loginUser(values.CaseNumber);
+        this.loginUser(values.CaseNumber).then((r)=>{
+          console.log(r)
+          this.props.history.push("/home", {user: r})
+        });
       }
     });
   };
@@ -31,7 +36,7 @@ class Login extends Component {
       }
     });
 
-    console.log(owner, judge, lawyer1, lawyer2);
+    // console.log(owner, judge, lawyer1, lawyer2);
 
     if (account == owner) {
       // can upload & view
@@ -104,4 +109,4 @@ class Login extends Component {
 }
 
 const WrappedNormalLoginForm = Form.create({ name: "normal_login" })(Login);
-export default WrappedNormalLoginForm;
+export default withRouter( WrappedNormalLoginForm);

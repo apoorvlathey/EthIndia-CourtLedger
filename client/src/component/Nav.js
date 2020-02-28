@@ -18,12 +18,12 @@ export default class Nav extends Component {
                 onClick={this.handleClick}
                 selectedKeys={[this.state.current]}
                 mode="horizontal">
-                <Menu.Item key="home">
+                {/* <Menu.Item key="home">
                     <Link to="/">
                         <Icon type="home" />
                         Home
                     </Link>
-                </Menu.Item>
+                </Menu.Item> */}
                 <Menu.Item key="login">
                     <Link to="/login">
                         <Icon type="login" />
