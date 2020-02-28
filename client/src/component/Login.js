@@ -31,7 +31,7 @@ class Login extends Component {
         lawyer1 = r.lawyer1;
         lawyer2 = r.lawyer2;
       } else {
-        console.log(e);
+        console.log(e,"error");
       }
     });
 
