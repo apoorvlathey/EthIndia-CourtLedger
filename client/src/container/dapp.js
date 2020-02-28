@@ -32,7 +32,7 @@ class Dapp extends Component {
         // Load account
         const accounts = await web3.eth.getAccounts()
         this.setState({ account: accounts[0] })
-        
+
         console.log("CURRENT ACCOUNT IS: " + this.state.account)
 
         const networkId = await web3.eth.net.getId()
@@ -49,25 +49,25 @@ class Dapp extends Component {
     }
 
     async loginUser(caseId) {
-        const {account, court} = this.state
+        const { account, court } = this.state
         var owner, judge, lawyer1, lawyer2
         await court.methods.owner.call((err, res) => {
-          owner = res
+            owner = res
         })
         await court.methods.cases[caseId].judge.call((err, res) => {
-          judge = res
+            judge = res
         })
         await court.methods.cases[caseId].lawyer1.call((err, res) => {
-          lawyer1 = res
+            lawyer1 = res
         })
         await court.methods.cases[caseId].lawyer2.call((err, res) => {
-          lawyer2 = res
+            lawyer2 = res
         })
 
-        if(account == owner) {
+        if (account === owner) {
             // can upload & view
             console.log("this is owner")
-        } else if ( account == judge || account == lawyer1 || account == lawyer2) {
+        } else if (account === judge || account === lawyer1 || account === lawyer2) {
             //can view
             console.log("user can view")
         } else {
@@ -126,8 +126,8 @@ class Dapp extends Component {
         const { court } = this.state
         await court.methods.getEvidenceCount(caseId).call((err, res) => {
             console.log(res)
-            return(res)
-          })
+            return (res)
+        })
     }
 
     async getEvidence(caseId, evidenceNo) {
@@ -135,8 +135,8 @@ class Dapp extends Component {
         await court.methods.getEvidence(caseId, evidenceNo).call((err, res) => {
             console.log(res)
             //FileHash, FileType (JSON)
-            return(res)
-          })
+            return (res)
+        })
     }
 
     async addEncryptedKey(isLawyer, ljId, caseId, key) {
@@ -154,8 +154,8 @@ class Dapp extends Component {
         const { court } = this.state
         await court.methods.getEncryptedKey(caseId).call((err, res) => {
             console.log(res)
-            return(res)
-          })
+            return (res)
+        })
     }
 
     constructor(props) {
@@ -163,13 +163,13 @@ class Dapp extends Component {
         this.state = {
             account: '',
             loading: true,
-            court:'',
-            GAS:'',
-            GAS_PRICE:''
+            court: '',
+            GAS: '',
+            GAS_PRICE: ''
         }
     }
-    
-    
+
+
     render() {
         var passableItems = {
             court: this.state.court,
@@ -180,13 +180,7 @@ class Dapp extends Component {
         return (
             <div>
                 <Nav />
-<<<<<<< HEAD
-                <Main
-                    address={this.state.account}
-                />
-=======
-                <Main passableItems = {passableItems} />
->>>>>>> be70aafff6b0bc9af22dd52f7767db3beb034812
+                <Main passableItems={passableItems} />
             </div>
         );
     }

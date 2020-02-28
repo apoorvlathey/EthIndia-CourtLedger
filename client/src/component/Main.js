@@ -11,8 +11,20 @@ const Main = (props) => {
     return (
         <main>
             <Switch>
-                <Route exact path="/" component={Layout} />
-                <Route path="/login" component={WrappedNormalLoginForm} />
+                <Route exact path="/" render={
+                    function () {
+                        return (
+                            <Layout passableItems={{ "admin": true }} />
+                        )
+                    }
+                } />
+                <Route path="/login" render={
+                    function () {
+                        return (
+                            <WrappedNormalLoginForm />
+                        )
+                    }
+                } />
                 <Route path="/addcase" render={
                     function () {
                         return (

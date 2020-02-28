@@ -14,6 +14,7 @@ class Layout extends Component {
     state = {
         fileList: [],
         file: '',
+        hashList: [],
         accountId: '',
         loading: false,
         fieldReq: false,
@@ -29,7 +30,9 @@ class Layout extends Component {
     async componentDidMount() {
 
         let acc = await Instance.web3.eth.getAccounts();
+        let hashesList = ["bafybeid4as5qasotzsrjxti3qavngn23ksahyqitz6otgo5xmbmuj6vi3a", "bafybeibw527b75c57o7irlaca4ggw7jeqqs27aza6txdbgricwb77c3ozi"]
         this.setState({ accountId: acc[0] });
+        this.setState({ hashList: hashesList });
         this.observe();
         axios.defaults.headers.common['api_key'] = credentials.API_KEY;
         axios.defaults.headers.common['api_secret'] = credentials.API_SECRET;
@@ -40,6 +43,7 @@ class Layout extends Component {
         else {
             this.getFileHash();
         }
+        if (this.props.passableItems.admin) console.log("Hello admin")
     }
 
     getFileHash = async () => {
@@ -68,11 +72,13 @@ class Layout extends Component {
         if (response.data.data.Entries !== null) {
             for (let i = 0; i < response.data.data.Entries.length; i++) {
                 if (response.data.data.Entries[i].Type === 0) {
-                    await data.push({
-                        Name: response.data.data.Entries[i].Name,
-                        Hash: response.data.data.Entries[i].Hash,
-                        verfiledBoolean: 0
-                    });
+                    if (this.state.hashList.includes(response.data.data.Entries[i].Hash)) {
+                        await data.push({
+                            Name: response.data.data.Entries[i].Name,
+                            Hash: response.data.data.Entries[i].Hash,
+                            verfiledBoolean: 0
+                        });
+                    }
                 }
             }
         }
@@ -343,73 +349,82 @@ class Layout extends Component {
                 </div>
                 <div className="table_body_scrollable">
                     {/* HIDE FROM HERE IF NOT AUTHENTICATED */}
-                    <Form onSubmit={(event) => this.handleSubmit(event)} encType="multipart/form-data">
-                        <Table celled size="small" style={{ marginTop: '20px', marginBottom: '40px', background: '#f2f2f2', color: '#222222' }}>
-                            {/* IF NOT ADMIN HIDE */}
-                            <Table.Header>
-                                <Table.Row>
-
-                                    <Table.HeaderCell style={custom_header}>
+                    {this.props.passableItems.admin ? (
+                        <>
+                            <Form onSubmit={(event) => this.handleSubmit(event)} encType="multipart/form-data">
+                                <Table celled size="small" style={{ marginTop: '20px', marginBottom: '40px', background: '#f2f2f2', color: '#222222' }}>
+                                    {/* IF NOT ADMIN HIDE */}
+                                    <Table.Header>
                                         <Table.Row>
-                                            <Table.Cell textAlign="center" colSpan='2'>
-                                                <Input type="file" onChange={(e) => {
-                                                    const _file = e.target.files[0];
-                                                    const type = _file.type
-                                                    this.setState({ file: _file });
-                                                    // BASE64 ENCODING
-                                                    var reader = new FileReader();
-                                                    reader.onload = (theFile => {
-                                                        return e => {
-                                                            var binaryData = e.target.result;
-                                                            var base64String = window.btoa(binaryData); // encoded to base64
-                                                            // console.log(base64String)
 
-                                                            this.setState({ fileBase64: base64String });
-                                                            this.runEncrypt(
-                                                                this.state.temp_public_key,
-                                                                this.state.fileBase64
-                                                            ).then(encoded => {
-                                                                // console.log(encoded);
-                                                                this.setState({ encrypted_file_string: encoded })
-                                                            })
+                                            <Table.HeaderCell style={custom_header}>
+                                                <Table.Row>
+                                                    <Table.Cell textAlign="center" colSpan='2'>
+                                                        <Input type="file" onChange={(e) => {
+                                                            const _file = e.target.files[0];
+                                                            const type = _file.type
+                                                            this.setState({ file: _file });
+                                                            // BASE64 ENCODING
+                                                            var reader = new FileReader();
+                                                            reader.onload = (theFile => {
+                                                                return e => {
+                                                                    var binaryData = e.target.result;
+                                                                    var base64String = window.btoa(binaryData); // encoded to base64
+                                                                    // console.log(base64String)
 
-                                                        }
-                                                    })(_file)
-                                                    reader.readAsBinaryString(_file);
+                                                                    this.setState({ fileBase64: base64String });
+                                                                    this.runEncrypt(
+                                                                        this.state.temp_public_key,
+                                                                        this.state.fileBase64
+                                                                    ).then(encoded => {
+                                                                        // console.log(encoded);
+                                                                        this.setState({ encrypted_file_string: encoded })
+                                                                    })
 
-                                                }} required name="file" style={this.state.fieldReq ? { border: '2px solid red', borderRadius: '5px' } : {}} />
-                                            </Table.Cell>
-                                        </Table.Row>
-                                        <Table.Row>
-                                            <Table.Cell colSpan='2' textAlign="center" >
-                                                <Button primary type="submit" loading={this.state.loading} disabled={this.state.loading} >Submit</Button>
-                                            </Table.Cell>
-                                        </Table.Row>
-                                    </Table.HeaderCell>
+                                                                }
+                                                            })(_file)
+                                                            reader.readAsBinaryString(_file);
 
-                                    <Table.HeaderCell style={custom_header}>
-                                        <Table.Row>
-                                            <Table.Cell colSpan='2'>
-                                                API_KEY : {credentials.API_KEY}
-                                            </Table.Cell>
+                                                        }} required name="file" style={this.state.fieldReq ? { border: '2px solid red', borderRadius: '5px' } : {}} />
+                                                    </Table.Cell>
+                                                </Table.Row>
+                                                <Table.Row>
+                                                    <Table.Cell colSpan='2' textAlign="center" >
+                                                        <Button primary type="submit" loading={this.state.loading} disabled={this.state.loading} >Submit</Button>
+                                                    </Table.Cell>
+                                                </Table.Row>
+                                            </Table.HeaderCell>
+
+                                            <Table.HeaderCell style={custom_header}>
+                                                <Table.Row>
+                                                    <Table.Cell colSpan='2'>
+                                                        API_KEY : {credentials.API_KEY}
+                                                    </Table.Cell>
+                                                </Table.Row>
+                                                <Table.Row>
+                                                    <Table.Cell colSpan='2'>
+                                                        <div style={{ wordWrap: 'break-word', width: '600px' }}>
+                                                            API_SECRET : {credentials.API_SECRET}
+                                                        </div>
+                                                    </Table.Cell>
+                                                </Table.Row>
+                                            </Table.HeaderCell>
                                         </Table.Row>
-                                        <Table.Row>
-                                            <Table.Cell colSpan='2'>
-                                                <div style={{ wordWrap: 'break-word', width: '600px' }}>
-                                                    API_SECRET : {credentials.API_SECRET}
-                                                </div>
-                                            </Table.Cell>
-                                        </Table.Row>
-                                    </Table.HeaderCell>
-                                </Table.Row>
-                                {/* TILL HERE */}
-                            </Table.Header>
-                        </Table>
-                    </Form>
-                    <div className="content-container">
-                        <TableList fileList={this.state.fileList} readFile={this.readFile}
-                        />
-                    </div>
+                                        {/* TILL HERE */}
+                                    </Table.Header>
+                                </Table>
+                            </Form>
+                            <div className="content-container">
+                                <TableList fileList={this.state.fileList} readFile={this.readFile}
+                                />
+                            </div>
+                        </>
+                    ) :
+                        (<div className="content-container">
+                            <TableList fileList={this.state.fileList} readFile={this.readFile}
+                            />
+                        </div>)}
+
                     {/* TO HERE */}
 
 
