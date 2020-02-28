@@ -36,7 +36,7 @@ class Layout extends Component {
     this.setState({ accountId: acc[0] });
 
     if (!this.props.location.state) this.setState({ user: 4 });
-    else this.setState({ user: this.props.location.state.user });
+    else{ this.setState({ user: this.props.location.state.user }); console.log("YYYY",this.props.location.state.user)}
 
     this.observe();
     axios.defaults.headers.common["api_key"] = credentials.API_KEY;
