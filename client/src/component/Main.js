@@ -7,7 +7,9 @@ import Layout from "./layout";
 import WrappedNormalLoginForm from "./Login";
 import WrappedNormalAddCaseForm from "./AddCase";
 import WrappedNormalRegisterForm from "./Register";
-export default function Main() {
+const Main = (props) => {
+
+
     return (
         <main>
             <Switch>
@@ -15,14 +17,18 @@ export default function Main() {
                 <Route path="/login" component={WrappedNormalLoginForm} />
                 <Route path="/addcase" component={WrappedNormalAddCaseForm} />
                 {/* <Route path="/register" render={()=><WrappedNormalRegisterForm registerLawyer={this.props.registerLawyer.bind(this)}/>} /> */}
-                <Route path="/register" component={WrappedNormalRegisterForm} />
+                <Route path="/register" render={function () {
+                    return (
+                        <WrappedNormalRegisterForm address={props.address} />
+                    )
+                }} />
                 <Route component={NoMatch} />
             </Switch>
-        </main>
+        </main >
     );
 }
 
-
+export default Main;
 
 const NoMatch = () => {
     return (

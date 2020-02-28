@@ -170,7 +170,7 @@ class Dapp extends Component {
             <div>
                 <Nav />
                 <Main
-                    registerLawyer={this.registerLawyer.bind(this)}
+                    address={this.state.account}
                 />
             </div>
         );

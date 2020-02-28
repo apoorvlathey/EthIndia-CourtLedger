@@ -17,12 +17,11 @@ class Register extends Component {
         a.download = "private_key"
         a.click()
         document.body.removeChild(a)
-        // document.location.reload();
+        document.location.reload();
     }
 
     handleSubmit = e => {
         e.preventDefault();
-        console.log("LALALALALA", this.props.address)
         this.props.form.validateFields((err, values) => {
             if (!err) {
                 console.log("Received values of form: ", values);
@@ -32,10 +31,6 @@ class Register extends Component {
             }
         });
     };
-    constructor(props) {
-        super(props);
-
-    }
 
     render() {
         const { getFieldDecorator } = this.props.form;
@@ -98,7 +93,7 @@ class Register extends Component {
                             )}
                         </Form.Item>
                         <Form.Item>
-                            {getFieldDecorator("Address", {
+                            {getFieldDecorator("ID_Num", {
                                 rules: [
 
                                 ]
@@ -110,11 +105,11 @@ class Register extends Component {
                                             style={{ color: "rgba(0,0,0,.25)" }}
                                         />
                                     }
-                                    placeholder="Eth Address"
+                                    placeholder="Unique Id Number"
                                 />
                             )}
                         </Form.Item>
-                        {/* <Form.Item>
+                        <Form.Item>
                             {getFieldDecorator("District", {
                                 rules: [
 
@@ -130,23 +125,6 @@ class Register extends Component {
                                     placeholder="District"
                                 />
                             )}
-                        </Form.Item> */}
-                        <Form.Item>
-                            {getFieldDecorator("PublicKey", {
-                                rules: [
-
-                                ]
-                            })(
-                                <Input
-                                    prefix={
-                                        <Icon
-                                            type="lock"
-                                            style={{ color: "rgba(0,0,0,.25)" }}
-                                        />
-                                    }
-                                    placeholder="Public Key"
-                                />
-                            )}
                         </Form.Item>
 
                         <Form.Item className={styles.formBottom}>
@@ -154,7 +132,7 @@ class Register extends Component {
                                 type="primary"
                                 htmlType="submit"
                                 className="login-form-button">
-                                Proceed to Add the user
+                                Proceed to Adding the user
                             </Button>
                             <br />
                         </Form.Item>
