@@ -32,6 +32,7 @@ class Dapp extends Component {
         // Load account
         const accounts = await web3.eth.getAccounts()
         this.setState({ account: accounts[0] })
+        
         console.log("CURRENT ACCOUNT IS: " + this.state.account)
 
         const networkId = await web3.eth.net.getId()
@@ -162,16 +163,24 @@ class Dapp extends Component {
         this.state = {
             account: '',
             loading: true,
+            court:'',
+            GAS:'',
+            GAS_PRICE:''
         }
     }
-
+    
+    
     render() {
+        var passableItems = {
+            court: this.state.court,
+            account: this.state.account,
+            GAS: this.state.GAS,
+            GAS_PRICE: this.state.GAS_PRICE
+        }
         return (
             <div>
                 <Nav />
-                <Main
-                    registerLawyer={this.registerLawyer.bind(this)}
-                />
+                <Main passableItems = {passableItems} />
             </div>
         );
     }

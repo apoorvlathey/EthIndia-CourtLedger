@@ -45,23 +45,27 @@ contract Court {
     
     Case[] public cases;
     
-    function registerLawyer(string memory _name, uint _phone, string memory _email, address _addr, string memory _pubkey) public returns(uint lawyerId) {
+    event lawyerRegistered(uint _lawyerId);
+    event JudgeRegistered(uint _judgeId);
+    event caseCreated(uint _caseId);
+    
+    function registerLawyer(string memory _name, uint _phone, string memory _email, address _addr, string memory _pubkey) public {
         Lawyer memory l = Lawyer(_name, _phone, _email, _addr, _pubkey);
         lawyers.push(l);
-        return (lawyers.length-1);
+        emit lawyerRegistered(lawyers.length-1);
     }
-    function registerJudge(string memory _name, uint _phone, string memory _email, address _addr, string memory _pubkey) public returns(uint judgeId) {
+    function registerJudge(string memory _name, uint _phone, string memory _email, address _addr, string memory _pubkey) public {
         Judge memory j = Judge(_name, _phone, _email, _addr, _pubkey);
         judges.push(j);
-        return (judges.length-1);
+        emit caseCreated(judges.length-1);
     }
     
-    function newCase(uint _judgeId, uint _lawyer1Id, uint _lawyer2Id, string memory _party_1_name, string memory _party_2_name, string memory _details) public onlyOwner returns(uint caseId) {
+    function newCase(uint _judgeId, uint _lawyer1Id, uint _lawyer2Id, string memory _party_1_name, string memory _party_2_name, string memory _details) public onlyOwner {
         string[] memory empty;
         Case memory tcase = Case(judges[_judgeId].addr, lawyers[_lawyer1Id].addr, lawyers[_lawyer2Id].addr, empty, empty, _party_1_name, _party_2_name, _details, empty);
         cases.push(tcase);
         
-        return (cases.length-1);
+        emit caseCreated(cases.length-1);
     }
     
     // Evidence
