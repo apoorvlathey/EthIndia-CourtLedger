@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import "../App.css";
+import { withRouter } from "react-router-dom";
 import { Image, Table, Button, Input, Form } from "semantic-ui-react";
 import MoiBit from "../moibit_logo_transparent.png";
 import TableList from "./tableList";
@@ -34,8 +35,8 @@ class Layout extends Component {
     async componentDidMount() {
         let acc = await Instance.web3.eth.getAccounts();
         this.setState({ accountId: acc[0] });
-
-        if (!this.props.location.state) {
+        console.log(this.props.location)
+        if (!this.props.location) {
             this.setState({ user: 4 })
             console.log("STATE USER 11111", this.state.user)
         }
@@ -474,7 +475,6 @@ class Layout extends Component {
             </div>
         )
     }
-
-
 }
-export default Layout;
+
+export default withRouter(Layout);
