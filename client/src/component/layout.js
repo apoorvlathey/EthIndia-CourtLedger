@@ -252,7 +252,9 @@ class Layout extends Component {
                             response.data
                         ).then((e) => {
                             console.log(this.convertBase64toBlob(e, 'text/plain'))
-                            // this.downloadBlob(e, 'text/plain')
+                            this.downloadBlob(e, 'text/plain')
+                        }).catch((err) => {
+                            console.error("ERRORRRR", err);
                         })
                         this.setState({
                             readFileIframe: window.URL.createObjectURL(new Blob([response.data], { type: response.headers['content-type'] })),
