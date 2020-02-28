@@ -10,9 +10,12 @@ class Login extends Component {
     this.props.form.validateFields((err, values) => {
       if (!err) {
         console.log("Received values of form: ", values.CaseNumber);
-        this.loginUser(values.CaseNumber).then((r) => {
-          console.log(r)
-          this.props.history.push("/home", { user: r })
+        this.loginUser(values.CaseNumber).then(r => {
+          console.log(r);
+          this.props.history.push("/home", {
+            user: r,
+            caseId: values.CaseNumber
+          });
         });
       }
     });
@@ -31,7 +34,7 @@ class Login extends Component {
         lawyer1 = r.lawyer1;
         lawyer2 = r.lawyer2;
       } else {
-        console.log(e,"error");
+        console.log(e, "error");
       }
     });
 

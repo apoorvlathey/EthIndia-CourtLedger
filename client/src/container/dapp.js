@@ -46,36 +46,6 @@ class Dapp extends Component {
     }
   }
 
-  async uploadEvidence(caseId, filehash, filetype) {
-    const { account, court, GAS, GAS_PRICE } = this.state;
-    await court.methods
-      .uploadEvidence(caseId, filehash, filetype)
-      .send({ from: account, gas: GAS, gasPrice: GAS_PRICE })
-      .then(r => {
-        console.log(r);
-      })
-      .catch(e => {
-        console.log(e);
-      });
-  }
-
-  async getEvidenceCount(caseId) {
-    const { court } = this.state;
-    await court.methods.getEvidenceCount(caseId).call((err, res) => {
-      console.log(res);
-      return res;
-    });
-  }
-
-  async getEvidence(caseId, evidenceNo) {
-    const { court } = this.state;
-    await court.methods.getEvidence(caseId, evidenceNo).call((err, res) => {
-      console.log(res);
-      //FileHash, FileType (JSON)
-      return res;
-    });
-  }
-
   async addEncryptedKey(isLawyer, ljId, caseId, key) {
     const { account, court, GAS, GAS_PRICE } = this.state;
     await court.methods

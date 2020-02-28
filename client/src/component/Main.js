@@ -15,7 +15,7 @@ const Main = props => {
         <Route
           exact
           path="/"
-          render={function () {
+          render={function() {
             return (
               <WrappedNormalLoginForm
                 passableItems={props.passableItems}
@@ -24,14 +24,15 @@ const Main = props => {
             );
           }}
         />
-        <Route path="/home" render={function () {
-          return (
-            <Layout />
-          );
-        }} />
+        <Route
+          path="/home"
+          render={function() {
+            return <Layout passableItems={props.passableItems} />;
+          }}
+        />
         <Route
           path="/login"
-          render={function () {
+          render={function() {
             return (
               <WrappedNormalLoginForm
                 passableItems={props.passableItems}
@@ -42,7 +43,7 @@ const Main = props => {
         />
         <Route
           path="/addcase"
-          render={function () {
+          render={function() {
             return (
               <WrappedNormalAddCaseForm passableItems={props.passableItems} />
             );
@@ -50,7 +51,7 @@ const Main = props => {
         />
         <Route
           path="/registerLawyer"
-          render={function () {
+          render={function() {
             return (
               <WrappedNormalRegisterLawyerForm
                 passableItems={props.passableItems}
@@ -60,7 +61,7 @@ const Main = props => {
         />
         <Route
           path="/registerJudge"
-          render={function () {
+          render={function() {
             return (
               <WrappedNormalRegisterJudgeForm
                 passableItems={props.passableItems}
