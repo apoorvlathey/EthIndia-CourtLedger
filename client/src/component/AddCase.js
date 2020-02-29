@@ -59,24 +59,41 @@ class AddCase extends Component {
       .on("data", event => {
         this.setState({ lawyerId: event.returnValues._caseId });
       })
-      .on("changed", function(event) {
+      .on("changed", function (event) {
         console.log("NEWWW", event);
       })
       .on("error", console.error);
   };
+  async checkAuth(props) {
+    // console.log(props)
+    const { account, court } = this.props.passableItems;
+    // console.log("HII", account, court);
+    var owner;
+    await court.methods.owner().call((err, res) => {
+      owner = res;
+    });
+    // console.log(owner)
+    if (owner === account) {
+      this.setState({ auth: true });
+    }
 
+  }
   constructor(props) {
     super(props);
     this.state = {
       account: "",
-      loading: true
+      loading: true,
+      auth: false
     };
   }
-
+  async componentDidMount() {
+    await this.checkAuth(this.props);
+  }
   render() {
+
     const { getFieldDecorator } = this.props.form;
     return (
-      <div className={styles.parentContainer}>
+      this.state.auth ? (<div className={styles.parentContainer}>
         <div className={styles.containerForm}>
           <Form
             onSubmit={this.handleSubmit}
@@ -180,7 +197,7 @@ class AddCase extends Component {
             </h3>
           </Form>
         </div>
-      </div>
+      </div>) : (<h1> YOU ARE NOT AN ADMIN</h1>)
     );
   }
 }

@@ -88,7 +88,8 @@ class Dapp extends Component {
     return (
       <div>
         <Nav />
-        <Main passableItems={passableItems} />
+        {this.state.loading ? (<p>LOADING</p>) : (<Main passableItems={passableItems} />)}
+
       </div>
     );
   }

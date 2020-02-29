@@ -40,7 +40,7 @@ class Login extends Component {
 
     // console.log(owner, judge, lawyer1, lawyer2);
 
-    if (account == owner) {
+    if (account === owner) {
       // can upload & view
       console.log("this is owner");
       return 2;
